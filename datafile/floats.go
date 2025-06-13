@@ -6,33 +6,32 @@ import (
 	"strconv"
 )
 
-func GetFloats(fileName string) ([3]float64, error) {
-	var numbers [3]float64
+func GetFloats(fileName string) ([]float64, error) {
+	var numbers []float64
 	file, err := os.Open(fileName)
 
 	if err != nil {
-		return numbers, err
+		return nil, err
 	}
 
 	scanner := bufio.NewScanner(file)
-	i := 0
 	for scanner.Scan() {
-		numbers[i], err = strconv.ParseFloat(scanner.Text(), 64)
+		value, err := strconv.ParseFloat(scanner.Text(), 64)
 		if err != nil {
-			return numbers, err
+			return nil, err
 		}
 
-		i++
+		numbers = append(numbers, value)
 	}
 
 	err = file.Close()
 	if err != nil {
-		return numbers, err
+		return nil, err
 	}
 
 	err = scanner.Err()
 	if err != nil {
-		return numbers, err
+		return nil, err
 	}
 
 	return numbers, nil
