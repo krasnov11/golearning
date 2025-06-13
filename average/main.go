@@ -13,7 +13,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	for i, v := range nums {
-		fmt.Printf("[%d] %f\n", i, v)
+	var sum float64 = 0
+	for _, number := range nums {
+		//fmt.Printf("[%d] %f\n", i, v)
+		sum += number
 	}
+	sampleCount := float64(len(nums))
+	fmt.Printf("Average: %0.2f\n", sum/sampleCount)
 }
